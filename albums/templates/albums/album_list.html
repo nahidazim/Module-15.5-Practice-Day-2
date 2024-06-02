@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Album List{% endblock %}
+
+{% block content %}
+<h1>Album List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Album Name</th>
+            <th>Musician Names</th>
+            <th>Release Date</th>
+            <th>Rating</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for album in albums %}
+        <tr>
+            <td>{{ album.id }}</td>
+            <td>{{ album.name }}</td>
+            <td>
+                {% for musician in album.musicians.all %}
+                    {{ musician.first_name }} {{ musician.last_name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ album.release_date }}</td>
+            <td>{{ album.rating }}</td>
+            <td>
+                <a href="{% url 'edit_album' album.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete_album' album.id %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

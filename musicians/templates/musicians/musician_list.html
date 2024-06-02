@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Musicians{% endblock %}
+
+{% block content %}
+<h1>Musicians</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Instrument Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for musician in musicians %}
+        <tr>
+            <td>{{ musician.id }}</td>
+            <td><a href="{% url 'edit_musician' musician.id %}">{{ musician }}</a></td>
+            <td>{{ musician.email }}</td>
+            <td>{{ musician.instrument_type }}</td>
+            <td>
+                <a href="{% url 'edit_musician' musician.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete_musician' musician.id %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
